@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Task011 {
     public static void main(String[] args) {
-        System.out.println(firstUniqueSymbol("11_22_333_4_5_4_6_7"));
+        System.out.println(firstUniqueSymbol("  11_22_333_4_5_4_6_7"));
     }
 
     private static Character firstUniqueSymbol(String s) {
