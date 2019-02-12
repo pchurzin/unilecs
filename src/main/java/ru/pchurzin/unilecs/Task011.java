@@ -1,3 +1,5 @@
+package ru.pchurzin.unilecs;
+
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,3 +1,5 @@
+package ru.pchurzin.unilecs;
+
 /**
  * https://t.me/unilecs/14
  * <p>

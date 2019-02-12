@@ -1,3 +1,5 @@
+package ru.pchurzin.unilecs;
+
 /**
  * https://t.me/unilecs/7
  * Заменить все пробелы в строке символами '%20'
