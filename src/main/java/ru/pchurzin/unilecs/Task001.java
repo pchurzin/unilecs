@@ -10,12 +10,7 @@ import java.util.Map;
 
 public class Task001 {
 
-    public static void main(String[] args) {
-        System.out.println(checkUniq("abcdea"));
-        System.out.println(checkUniq("abcde"));
-    }
-
-    private static boolean checkUniq(String str) {
+    public static boolean checkUniq(String str) {
         Map<Character, Integer> charCounter = new HashMap<>();
         for (Character c : str.toCharArray()) {
             Integer count = charCounter.merge(c, 1, (old, val) -> old + 1);
