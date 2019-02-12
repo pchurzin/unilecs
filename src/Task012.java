@@ -16,6 +16,8 @@ public class Task012 {
         System.out.println(doesArrayContainsDividers(new int[]{1, 0, 3, 3, 20, 8}, 10));   // false
         System.out.println(doesArrayContainsDividers(new int[]{1, 0, 3, 3, 20, 8}, 0));    // true
         System.out.println(doesArrayContainsDividers(new int[]{1, 0, -3, 3, -10}, -9));    // true
+        System.out.println(doesArrayContainsDividers(new int[]{}, -9));    // false
+        System.out.println(doesArrayContainsDividers(new int[]{9}, -9));    // false
     }
 
     static boolean doesArrayContainsDividers(int[] array, int x) {
