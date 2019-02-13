@@ -5,11 +5,7 @@ package ru.pchurzin.unilecs;
  * Заменить все пробелы в строке символами '%20'
  */
 public class Task003 {
-    public static void main(String[] args) {
-        System.out.println(replaceSpaceBySpecialSymbols("Mr John Smith".toCharArray()));
-    }
-
-    private static char[] replaceSpaceBySpecialSymbols(char[] input) {
+    public static char[] replaceSpaceBySpecialSymbols(char[] input) {
         int spaceCounter = 0;
         for (char c : input) {
             if (c == ' ') spaceCounter++;
