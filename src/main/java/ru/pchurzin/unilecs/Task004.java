@@ -5,16 +5,7 @@ package ru.pchurzin.unilecs;
  * https://t.me/unilecs/8
  */
 public class Task004 {
-    public static void main(String[] args) {
-        System.out.println(getIndexOfInputElementInSortedArray(new int[]{3, 4, 5, 6, 7, 8, 1, 2}, 7));
-        System.out.println(getIndexOfInputElementInSortedArray(new int[]{3, 4, 5, 6, 7}, 8));
-        System.out.println(getIndexOfInputElementInSortedArray(new int[]{8, 3, 4, 5, 6, 7}, 5));
-        System.out.println(getIndexOfInputElementInSortedArray(new int[]{}, 1));
-        System.out.println(getIndexOfInputElementInSortedArray(new int[]{3}, 1));
-        System.out.println(getIndexOfInputElementInSortedArray(new int[]{3}, 3));
-    }
-
-    private static int getIndexOfInputElementInSortedArray(int[] array, int element) {
+    public static int getIndexOfInputElementInSortedArray(int[] array, int element) {
         if (array.length == 0) {
             return -1;
         }
