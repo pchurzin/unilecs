@@ -11,14 +11,7 @@ import java.util.Objects;
  */
 
 public class Task006 {
-    public static void main(String[] args) {
-        System.out.println(isPermutation("cat", "act"));
-        System.out.println(isPermutation("cat", "apt"));
-        System.out.println(isPermutation2("cat", "act"));
-        System.out.println(isPermutation2("cat", "apt"));
-    }
-
-    private static boolean isPermutation(String s1, String s2) {
+    public static boolean isPermutation(String s1, String s2) {
         Objects.requireNonNull(s1);
         Objects.requireNonNull(s2);
 
@@ -39,7 +32,7 @@ public class Task006 {
         return charCounter1.equals(charCounter2);
     }
 
-    private static boolean isPermutation2(String s1, String s2) {
+    public static boolean isPermutation2(String s1, String s2) {
         Objects.requireNonNull(s1);
         Objects.requireNonNull(s2);
 
