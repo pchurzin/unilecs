@@ -7,11 +7,7 @@ package ru.pchurzin.unilecs;
  * максимально долго (без ошибок времени выполнения)
  */
 public class Task009 {
-    public static void main(String[] args) {
-        fib();
-    }
-
-    private static void fib() {
+    public static void fib() {
         int n1 = 0;
         int n2 = 1;
         int f = 0;
