@@ -5,16 +5,12 @@ import java.util.Map;
 
 /**
  * https://t.me/unilecs/19
- *
+ * <p>
  * Первый уникальный символ в строке
  */
 
 public class Task011 {
-    public static void main(String[] args) {
-        System.out.println(firstUniqueSymbol("  11_22_333_4_5_4_6_7"));
-    }
-
-    private static Character firstUniqueSymbol(String s) {
+    public static Character firstUniqueSymbol(String s) {
         Map<Character, Integer> counter = new HashMap<>();
         for (Character c :
                 s.toCharArray()) {
