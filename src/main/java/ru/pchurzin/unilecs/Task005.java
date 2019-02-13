@@ -9,13 +9,7 @@ import java.util.Objects;
  * можно ли сделать строку палиндромом
  */
 public class Task005 {
-    public static void main(String[] args) {
-        System.out.println(canBePalindrome("bbo"));//true
-        System.out.println(canBePalindrome("bob"));//true
-        System.out.println(canBePalindrome("cat"));//false
-    }
-
-    private static boolean canBePalindrome(String s) {
+    public static boolean canBePalindrome(String s) {
         Objects.requireNonNull(s);
         if (s.length() < 3) {
             return true;
