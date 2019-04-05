@@ -1,8 +1,5 @@
 package ru.pchurzin.unilecs;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * https://telegra.ph/Task-15-Obem-vody-v-gistogramme-10-04
  * <p>
@@ -11,47 +8,31 @@ import java.util.List;
 
 class Task015 {
     static int getVolume(int[] histogram) {
-        List<Integer> localMaximums = getLocalMaximums(histogram);
-        if (localMaximums.size() < 2) {
-            return 0;
+        int[] leftLocalMaximums = new int[histogram.length];
+        int[] rightLocalMaximums = new int[histogram.length];
+        int currentLeftMax = 0;
+        int currentRightMax = 0;
+
+        //считаем для каждой точки гистограммы локальные максимумы слева и справа
+        for (int i = 0; i < histogram.length; i++) {
+            if (histogram[i] > currentLeftMax) {
+                currentLeftMax = histogram[i];
+            }
+            leftLocalMaximums[i] = currentLeftMax;
+            if (histogram[histogram.length - 1 - i] > currentRightMax) {
+                currentRightMax = histogram[histogram.length - 1 - i];
+            }
+            rightLocalMaximums[histogram.length - 1 - i] = currentRightMax;
         }
+
         int volume = 0;
-        int leftLocalMaximumIndex = 0;
-        while (leftLocalMaximumIndex < localMaximums.size() - 1) {
-            int rightLocalMaximumIndex = leftLocalMaximumIndex + 1;
-            int leftBound = localMaximums.get(leftLocalMaximumIndex);
-            int rightBound = localMaximums.get(rightLocalMaximumIndex);
-            while (rightLocalMaximumIndex < localMaximums.size() - 1 && histogram[leftBound] > histogram[rightBound]) {
-                rightBound = localMaximums.get(++rightLocalMaximumIndex);
+        for (int i = 0; i < histogram.length; i++) {
+            if (leftLocalMaximums[i] <= rightLocalMaximums[i]) {
+                volume += leftLocalMaximums[i] - histogram[i];
+            } else {
+                volume += rightLocalMaximums[i] - histogram[i];
             }
-            int level = Math.min(histogram[leftBound], histogram[rightBound]);
-            for (int i = leftBound + 1; i < rightBound; i++) {
-                if (histogram[i] < level) {
-                    volume += level - histogram[i];
-                }
-            }
-            leftLocalMaximumIndex = rightLocalMaximumIndex;
         }
         return volume;
-    }
-
-    private static List<Integer> getLocalMaximums(int[] histogram) {
-        List<Integer> result = new ArrayList<>();
-        boolean goingUp = true;
-        for (int i = 1; i < histogram.length; i++) {
-            int delta = histogram[i] - histogram[i - 1];
-            if (delta < 0) {
-                if (goingUp) {
-                    result.add(i - 1);
-                    goingUp = false;
-                }
-            } else {
-                goingUp = true;
-            }
-        }
-        if (goingUp && (0 - histogram[histogram.length - 1] < 0)) {
-            result.add(histogram.length - 1);
-        }
-        return result;
     }
 }
