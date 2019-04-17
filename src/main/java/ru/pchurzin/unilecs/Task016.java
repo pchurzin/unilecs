@@ -1,6 +1,7 @@
 package ru.pchurzin.unilecs;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * https://telegra.ph/Task-16-Kak-rabotaet-bankomat-10-05
@@ -50,50 +51,51 @@ public class Task016 {
     }
 
     static Map<Integer, Integer> getMoneyAdvanced(int amount, Map<Integer, Integer> storage) {
-        return new AdvancedAtm(storage, amount).getResult();
-    }
-
-    private static class AdvancedAtm {
-        private List<Integer> banknotes = new ArrayList<>();
-        private Map<Integer, Integer> result = new HashMap<>();
-
-        public AdvancedAtm(Map<Integer, Integer> storage, int amount) {
-            for (Map.Entry<Integer, Integer> entry : storage.entrySet()) {
-                for (int i = 0; i < entry.getValue(); i++) {
-                    banknotes.add(entry.getKey());
+        List<Integer> coinValuesCandidates = storage.entrySet().stream()
+                .filter(entry -> entry.getValue() > 0)
+                .map(Map.Entry::getKey)
+                .filter(value -> value <= amount)
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
+        //an array to store minimum of banknotes needed to get the sum
+        //i.e. minCoins[10] - minimum number of banknotes to get the sum of 10.
+        //if this is impossible then it holds Integer.MAX_VALUE
+        Map<Integer, Integer> result = new HashMap<>();
+        int[] minCoins = new int[amount + 1];
+        minCoins[0] = 0;
+        for (int sum = 1; sum <= amount; sum++) {
+            minCoins[sum] = Integer.MAX_VALUE;
+            for (int coin : coinValuesCandidates) {
+                if (sum >= coin && minCoins[sum] - minCoins[sum - coin] > 1) {//minCoins[sum] > minCoins[sum - coin] + 1
+                    minCoins[sum] = minCoins[sum - coin] + 1;
                 }
             }
-            Collections.sort(banknotes);
-            List<Integer> bnList = getBanknotes(this.banknotes.size() - 1, amount);
-            bnList.forEach(i -> result.merge(i, 1, Integer::sum));
         }
 
-        public Map<Integer, Integer> getResult() {
-            return result;
+        if (minCoins[amount] == Integer.MAX_VALUE) {
+            return Collections.EMPTY_MAP;
         }
 
-        private List<Integer> getBanknotes(int index, int remaining) {
-            List<Integer> result = new ArrayList<>();
-            if (remaining < 0) {
-                return result;
-            }
-            if (index == 0) {
-                if (banknotes.get(index) == remaining) {
-                    result.add(banknotes.get(index));
+        int remain = amount;
+        while (remain > 0) {
+            int curRemain = remain;
+            for (int coin : coinValuesCandidates) {
+                if (storage.get(coin) <= 0) {
+                    continue;
                 }
-                return result;
+                if (remain >= coin && minCoins[remain] == minCoins[remain - coin] + 1) {
+                    result.merge(coin, 1, (old, value) -> old + value);
+                    storage.compute(coin,(key, oldValue) -> --oldValue);
+                    remain -= coin;
+                    break;
+                }
             }
 
-            List<Integer> with = getBanknotes(index - 1, remaining - banknotes.get(index));
-            List<Integer> without = getBanknotes(index - 1, remaining);
-
-            if (!with.isEmpty()) {
-                result.addAll(with);
-                result.add(banknotes.get(index));
-            } else if (!without.isEmpty()) {
-                result.addAll(without);
+            if (curRemain == remain) {
+                return Collections.EMPTY_MAP;
             }
-            return result;
         }
+
+        return result;
     }
 }
