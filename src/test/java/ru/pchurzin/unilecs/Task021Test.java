@@ -1,6 +1,5 @@
 package ru.pchurzin.unilecs;
 
-import jdk.Exported;
 import org.junit.Test;
 
 import java.util.Arrays;
